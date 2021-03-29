@@ -20,6 +20,6 @@ const main = async () => {
   }
 }
 
-const job = schedule.scheduleJob('56 22 * * *', function(){ // 서버 시간에 맞춰서 작동함.
+const job = schedule.scheduleJob('00 23 * * *', function(){ // 서버 시간에 맞춰서 작동함.
   main();
 });
