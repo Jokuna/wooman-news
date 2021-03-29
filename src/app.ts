@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+import schedule from "node-schedule"
 import crawler from "./services/crawler";
 import mailSend from "./services/mail";
 
@@ -19,4 +20,6 @@ const main = async () => {
   }
 }
 
-main();
+const job = schedule.scheduleJob('56 22 * * *', function(){ // 서버 시간에 맞춰서 작동함.
+  main();
+});
