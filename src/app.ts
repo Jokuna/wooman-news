@@ -7,12 +7,12 @@ import { load } from 'cheerio';
 
 const nodemailer = require('nodemailer');
 
-type menuJSON = { // 초기 형태 선언
+type menuJSON = [ // 초기 형태 선언
   index: {
     date: number,
     menu: string
   }
-};
+];
 
 const main = async () => {
   const { data: menuHTML } = await axios.get('http://www.wooman.or.kr/community/?act=sub1_3');
@@ -21,14 +21,16 @@ const main = async () => {
   // const text = $_menu('table').text()
 
   const menuCrawled = $_menu('td > div.foods');
-  // console.log(menuCrawled)
   const menuText : Array<menuJSON>  = $_menu(menuCrawled)
   .map(
     (i, ele) => {
+      // console.log(ele)
+      // console.log(Number($_menu(ele).parent().find('span').html()?.trim()))
+      // console.log($_menu(ele).html()?.replace(/<br>/g, "\n").replace(/&amp;/g, "&").trim())
       return {
-        date: i,
+        date: Number($_menu(ele).parent().find('span').html()?.trim()),
         menu: $_menu(ele).html()?.replace(/<br>/g, "\n").replace(/&amp;/g, "&").trim()
-      };
+      }
     }
   )
   .get();
