@@ -18,7 +18,7 @@ const mailSend = async (TodayMenu) => {
   let info = await transporter.sendMail({
     from: `"Woman" <${process.env.NODEMAILER_USER}>`,
     to: process.env.NODEMAILER_EMAIL,
-    subject: `[오늘의 메뉴] ${TodayDate}`,
+    subject: `[오늘의 메뉴] ${TodayDate()}`,
     text: TodayMenu
   });
 
