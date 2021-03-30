@@ -3,34 +3,44 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "dependencies": {
-    "@types/node": "^14.14.37",
-    "@types/nodemailer": "^6.4.1",
-    "@typescript-eslint/eslint-plugin": "^4.19.0",
-    "axios": "^0.21.1",
-    "cheerio": "^1.0.0-rc.5",
-    "cross-env": "^7.0.3",
-    "dotenv": "^8.2.0",
-    "eslint": "^7.23.0",
-    "eslint-plugin-no-loops": "^0.3.0",
-    "husky": "^5.2.0",
-    "moment-timezone": "^0.5.33",
-    "node-schedule": "^2.0.0",
-    "nodemailer": "^6.5.0",
-    "rimraf": "^3.0.2",
-    "ts-node": "^9.1.1",
-    "ts-node-dev": "^1.1.6",
-    "typescript": "^4.2.3"
-  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --watch src ./src/app.ts",
     "build": "rimraf ./dist && tsc",
     "prod": "npm run build && cross-env NODE_ENV=production node ./build/app.js",
     "pm2": "npm run build && cross-env NODE_ENV=production pm2 start ./build/app.js --name 'wooman'",
     "pm2-restart": "npm run build && pm2 restart wooman",
-    "clean": "rimraf build node_modules yarn.lock"
+    "lint": "eslint . --ext .ts",
+    "lint-and-fix": "eslint . --ext .ts --fix",
+    "rm": "rimraf build node_modules yarn.lock yarn-error.log",
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+  },
+  "dependencies": {
+    "@types/cheerio": "^0.22.28",
+    "@types/node": "^14.14.37",
+    "@types/nodemailer": "^6.4.1",
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^8.2.0",
+    "moment-timezone": "^0.5.33",
+    "node-schedule": "^2.0.0",
+    "nodemailer": "^6.5.0"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.28"
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "eslint": "^7.23.0",
+    "eslint-plugin-no-loops": "^0.3.0",
+    "husky": "^6.0.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.2.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier-format && npm run lint"
+    }
   }
 }
