@@ -12,16 +12,15 @@ const mailSend = async (
     port: 587,
     secure: false,
     auth: {
-      type: 'OAuth2',
-      user: process.env.NODEMAILER_USER,
-      accessToken: process.env.NODEMAILER_ACCESSTOKEN
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD
     }
   });
 
   // send mail with defined transport object
   const info = await transporter.sendMail({
     from: `"Woman" <${process.env.NODEMAILER_USER}>`,
-    to: process.env.NODEMAILER_EMAIL,
+    to: process.env.MAIL_EMAIL,
     subject: `[오늘의 메뉴 & 일정] ${TodayDate()}`,
     text: `[메뉴]\n${TodayMenu}\n\n[복지관 일정]\n${TodaySchedule}`
   });
