@@ -6,10 +6,8 @@ type menu = {
   menu: string;
 };
 
-const crawler = async (): Promise<Array<menu>> => {
-  const { data: menuHTML } = await axios.get(
-    'http://www.wooman.or.kr/community/?act=sub1_3'
-  );
+const crawler = async (url: string): Promise<Array<menu>> => {
+  const { data: menuHTML } = await axios.get(url);
   const $_menu = load(menuHTML);
   // const text = $_menu('table').text()
   const menuCrawled = $_menu('td > div.foods');
@@ -28,4 +26,32 @@ const crawler = async (): Promise<Array<menu>> => {
   return menuList;
 };
 
-export default crawler;
+const crawlerPlan = async (url: string): Promise<Array<menu>> => {
+  const { data: menuHTML } = await axios.get(url);
+  const $_menu = load(menuHTML);
+  // const text = $_menu('table').text()
+  const menuCrawled = $_menu('td > div.title');
+  let menuList: Array<menu> = $_menu(menuCrawled)
+    .map((i, ele) => {
+      return {
+        date: Number($_menu(ele).parent().find('span').html()?.trim()),
+        menu: $_menu(ele).text().trim()
+      };
+    })
+    .get();
+
+  menuList = menuList.reduce((r: Array<menu>, e: menu) => {
+    if (!r.find((element: { date: number }) => element.date === e.date)) {
+      r.push(e);
+    } else {
+      const index = r.findIndex((element) => element.date === e.date);
+      r[index].menu = r[index].menu.concat('\n', e.menu).trim();
+    }
+    return r;
+  }, []);
+  return menuList;
+};
+
+// export default crawler;
+
+export { crawler, crawlerPlan };
