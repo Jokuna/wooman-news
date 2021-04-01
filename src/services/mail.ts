@@ -1,10 +1,16 @@
 import nodemailer from 'nodemailer';
-
+import MailContent from './mail_content';
 import { TodayDate } from './date';
+
+type menu = {
+  date: number;
+  menu: string;
+};
 
 const mailSend = async (
   TodayMenu: string,
-  TodaySchedule: string
+  TodaySchedule: string,
+  MonthlyMenu: Array<menu>
 ): Promise<void> => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -22,7 +28,7 @@ const mailSend = async (
     from: `"Woman" <${process.env.NODEMAILER_USER}>`,
     to: process.env.MAIL_EMAIL,
     subject: `[오늘의 메뉴 & 일정] ${TodayDate()}`,
-    text: `[메뉴]\n${TodayMenu}\n\n[복지관 일정]\n${TodaySchedule}`
+    text: MailContent(TodayMenu, TodaySchedule, MonthlyMenu)
   });
 
   console.log('Message sent: %s', info.messageId);

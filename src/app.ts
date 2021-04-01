@@ -27,7 +27,7 @@ const main = async () => {
   )?.menu;
 
   if (TodayMenu && TodaySchedule) {
-    await mailSend(TodayMenu, TodaySchedule).catch(console.error);
+    await mailSend(TodayMenu, TodaySchedule, MonthlyMenu).catch(console.error);
   }
 };
 
