@@ -1,9 +1,22 @@
-# Master 브랜치에 push가 들어올 때 동작하는 job
-deploy-to-server:
+image: node:14.16.0
+stages:
+  - build
+  - deploy
+# This folder is cached between builds
+# http://docs.gitlab.com/ee/ci/yaml/README.html#cache
+cache:
+  paths:
+    - node_modules/
+.build:
+  stage: build
+  script:
+    - yarn install && yarn global add pm2
+  only:
+    - master
+deploy:
   stage: deploy
+  extends: .build
   only:
     - master
   script:
-    - echo 'hello world!'
-  tags:
-    - deploy
+    - yarn pm2
