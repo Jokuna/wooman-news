@@ -8,14 +8,16 @@ cache:
   paths:
     - node_modules/
 build:
-  tags: deploy
+  tags:
+    - deploy
   stage: build
   script:
     - yarn install && yarn global add pm2
   only:
     - master
 deploy:
-  tags: deploy
+  tags:
+    - deploy
   stage: deploy
   extends: build
   only:
