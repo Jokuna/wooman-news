@@ -12,7 +12,7 @@ build:
     - deploy
   stage: build
   script:
-    - npm i -g yarn pm2 && yarn install
+    - yarn add global pm2 && yarn install
   only:
     - master
 deploy:
