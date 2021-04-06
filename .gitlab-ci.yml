@@ -1,26 +1,70 @@
-image: node:14.16.0
 stages:
   - build
   - deploy
 # This folder is cached between builds
 # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
+
+variables:
+  IMAGE_NAME: docker.jokuna.local/wooman:$IMAGE_VERSION
+
 cache:
   paths:
     - node_modules/
+
+# Local에서 Image Build
+
+
 build:
-  tags:
-    - deploy
+  stage: build
+  image: docker:20.10.5
+  services:
+    - docker:dind
   stage: build
   script:
-    - yarn add global pm2 && yarn install
+    - echo 'Building...'
+    - ls -al
+    - docker container ls -a
+    - docker build . -t $IMAGE_NAME
+    - docker push $IMAGE_NAME
+    - docker images | grep '<IP>'
+  only:
+    - master  
+  tags:
+    - build
+
+
+# build:
+#   tags:
+#     - deploy
+#   stage: build
+#   script:
+#     - yarn add global pm2 && yarn install
+#   only:
+#     - master
+
+
+deploy:
+  stage: deploy
+  image: docker:20.10.5
+  services:
+    - docker:dind
+  script:
+    - echo 'Deploying...'
+    - docker container ls -a
+    - docker container rm -f wooman
+    - docker run -d --name wooman --restart always $IMAGE_NAME
+    - docker container ls -a
   only:
     - master
-deploy:
   tags:
     - deploy
-  stage: deploy
-  extends: build
-  only:
-    - master
-  script:
-    - yarn pm2
+
+# deploy:
+#   tags:
+#     - deploy
+#   stage: deploy
+#   extends: build
+#   only:
+#     - master
+#   script:
+#     - yarn pm2
