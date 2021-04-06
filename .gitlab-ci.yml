@@ -5,7 +5,7 @@ stages:
 # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
 
 variables:
-  IMAGE_NAME: docker.jokuna.local/wooman:$IMAGE_VERSION
+  IMAGE_NAME: docker.jokuna.local/wooman
 
 cache:
   paths:
@@ -16,10 +16,8 @@ cache:
 
 build:
   stage: build
-  image: docker:20.10.5
-  services:
-    - docker:dind
-  stage: build
+  before_script:
+  - docker info
   script:
     - echo 'Building...'
     - ls -al && pwd
@@ -27,7 +25,7 @@ build:
     - docker container ls -a
     - docker build . -t $IMAGE_NAME
     - docker push $IMAGE_NAME
-    - docker images | grep '<IP>'
+    - docker images
   only:
     - master  
   tags:
