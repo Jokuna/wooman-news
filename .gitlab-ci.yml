@@ -5,7 +5,7 @@ stages:
 # http://docs.gitlab.com/ee/ci/yaml/README.html#cache
 
 variables:
-  IMAGE_NAME: docker.jokuna.local/wooman
+  IMAGE_NAME: docker.jokuna.local/dev/wooman
 
 cache:
   paths:
