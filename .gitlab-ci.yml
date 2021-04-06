@@ -22,7 +22,8 @@ build:
   stage: build
   script:
     - echo 'Building...'
-    - ls -al
+    - ls -al && pwd
+    - docker info
     - docker container ls -a
     - docker build . -t $IMAGE_NAME
     - docker push $IMAGE_NAME
