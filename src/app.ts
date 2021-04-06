@@ -1,4 +1,4 @@
-import 'dotenv/config';
+// import 'dotenv/config';
 
 import schedule from 'node-schedule';
 import { crawler, crawlerPlan } from './services/crawler';
@@ -32,9 +32,9 @@ const main = async () => {
 };
 
 // Main Function
-schedule.scheduleJob('00 23 * * *', function () {
+schedule.scheduleJob('00 22 * * *', function () {
   // 서버 시간에 맞춰서 작동함.
-  // 00 23 * * * (Ubuntu 서버 시간 기준)
+  // 00 22 * * * (Ubuntu 서버 시간 기준) 오전 7시
   // 1분 매크로 0 * * * * *
   main();
 });

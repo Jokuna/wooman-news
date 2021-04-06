@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "wooman",
+      "script": "./build/app.js",
+      "watch": true
+    }
+  ]
+}

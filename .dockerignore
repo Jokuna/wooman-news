@@ -1,0 +1,9 @@
+build
+node_modules
+.husky
+.eslintignore
+.eslintrc
+.gitignore
+.gitlab-ci.yml
+.prettierrc
+.env

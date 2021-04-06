@@ -5,13 +5,13 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --watch src ./src/app.ts",
-    "build": "rimraf ./dist && tsc",
+    "build": "rimraf ./build && tsc",
     "prod": "npm run build && cross-env NODE_ENV=production node ./build/app.js",
     "pm2": "npm run build && cross-env NODE_ENV=production pm2 start ./build/app.js --name 'wooman'",
     "pm2-restart": "npm run build && pm2 restart wooman",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
-    "rm": "rimraf build node_modules yarn.lock yarn-error.log",
+    "clean": "rimraf build node_modules yarn-error.log",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "dependencies": {
