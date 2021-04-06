@@ -11,8 +11,6 @@ cache:
   paths:
     - node_modules/
 
-# Local에서 Image Build
-
 build:
   stage: build
   before_script:
@@ -29,16 +27,6 @@ build:
     - master  
   tags:
     - build
-
-
-# build:
-#   tags:
-#     - deploy
-#   stage: build
-#   script:
-#     - yarn add global pm2 && yarn install
-#   only:
-#     - master
 
 deploy:
   stage: deploy
