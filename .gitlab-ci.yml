@@ -13,7 +13,6 @@ cache:
 
 # Local에서 Image Build
 
-
 build:
   stage: build
   before_script:
@@ -41,12 +40,10 @@ build:
 #   only:
 #     - master
 
-
 deploy:
   stage: deploy
-  image: docker:20.10.5
-  services:
-    - docker:dind
+  before_script:
+    - docker login docker.jokuna.local -u kuna -p $REGISTRY_TOKEN
   script:
     - echo 'Deploying...'
     - docker container ls -a
@@ -57,13 +54,3 @@ deploy:
     - master
   tags:
     - deploy
-
-# deploy:
-#   tags:
-#     - deploy
-#   stage: deploy
-#   extends: build
-#   only:
-#     - master
-#   script:
-#     - yarn pm2
