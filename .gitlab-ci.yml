@@ -28,7 +28,7 @@ deploy:
   before_script:
     - docker login docker.jokuna.local -u kuna -p $REGISTRY_TOKEN
   script:
-    - docker container rm -f wooman && docker rmi wooman
+    - docker container rm -f wooman && docker rmi $IMAGE_NAME
     - docker-compose up -d
     # docker run -d --name wooman --restart always $IMAGE_NAME
   only:
