@@ -34,12 +34,7 @@ const main = async () => {
 // Main Function
 schedule.scheduleJob('0 * * * * *', function () {
   // 서버 시간에 맞춰서 작동함.
-  // 00 22 * * * (Ubuntu 서버 시간 기준) 오전 7시
+  // 00 22 * * * (Ubuntu 서버 시간 기준) 오전 7시 30분
   // 1분 매크로 0 * * * * *
-  console.log(
-    process.env.MAIL_USER,
-    process.env.MAIL_PASSWORD,
-    process.env.MAIL_EMAIL
-  );
   main();
 });
