@@ -7,3 +7,5 @@ node_modules
 .gitlab-ci.yml
 .prettierrc
 .env
+builds
+cache
