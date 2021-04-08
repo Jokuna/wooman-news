@@ -16,7 +16,6 @@ build:
   before_script:
   - docker login docker.jokuna.local -u kuna -p $REGISTRY_TOKEN
   script:
-    - docker container rm -f wooman && docker rmi wooman
     - docker build . -t $IMAGE_NAME
     - docker push $IMAGE_NAME
   only:
