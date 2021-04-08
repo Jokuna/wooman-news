@@ -32,9 +32,9 @@ const main = async () => {
 };
 
 // Main Function
-schedule.scheduleJob('0 * * * * *', function () {
+schedule.scheduleJob('30 22 * * *', function () {
   // 서버 시간에 맞춰서 작동함.
-  // 00 22 * * * (Ubuntu 서버 시간 기준) 오전 7시 30분
+  // 30 22 * * * (Ubuntu 서버 시간 기준) 오전 7시 30분
   // 1분 매크로 0 * * * * *
   main();
 });

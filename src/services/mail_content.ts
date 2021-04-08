@@ -32,17 +32,17 @@ const MailContent = (TodayMenu, TodaySchedule, MonthlyMenu): string => {
   // TodayList
   switch (week) {
     case 1: // 월
-      text = `[Todo List]\n2시 도시락 세팅!!!\n\n` + text;
+      text = `[오늘의 할일]\n2시 도시락 세팅!!!\n\n` + text;
       break;
     case 2: // 화
-      text = `[Todo List]\n3시 대체식 세팅!\n\n` + text;
+      text = `[오늘의 할일]\n3시 대체식 세팅!\n\n` + text;
       break;
     // case 3: // 수
     //   text = `` + text;
     //   break;
     case 4: // 목
       text =
-        `[Todo List]\n김치 배달\n요리교실 업무지원 확인(10시30분~12시)!\n\n` +
+        `[오늘의 할일]\n김치 배달\n요리교실 업무지원 확인! (10시30분~12시)\n\n` +
         text;
       break;
     // case 5: // 금
