@@ -9,7 +9,7 @@ type menu = {
   menu: string;
 };
 
-const main = async () : Promise<void> => {
+const main = async (): Promise<void> => {
   if (process.env.NODE_ENV == 'development') {
     await import('dotenv/config'); // Dynamic import
     // 개발용으로만 .env 파일 사용,
@@ -36,8 +36,8 @@ const main = async () : Promise<void> => {
 };
 
 // Main Function
-const timer: string = process.env.NODE_ENV == 'development' ? '20 * * * * *' : '30 22 * * *';
-
+const timer: string =
+  process.env.NODE_ENV == 'development' ? '20 * * * * *' : '30 22 * * *';
 schedule.scheduleJob(timer, function () {
   // 서버 시간에 맞춰서 작동함.
   // 30 22 * * * (Ubuntu 서버 시간 기준) 오전 7시 30분

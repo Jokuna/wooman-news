@@ -5,7 +5,11 @@ type menu = {
   menu: string;
 };
 
-const MailContent = (TodayMenu: string, TodaySchedule: string, MonthlyMenu: Array<menu>): string => {
+const MailContent = (
+  TodayMenu: string,
+  TodaySchedule: string,
+  MonthlyMenu: Array<menu>
+): string => {
   let text = `[메뉴]\n${TodayMenu}\n\n[복지관 일정]\n${TodaySchedule}`;
   const Menu25: string | undefined = MonthlyMenu.find((e) => e.date === 25)
     ?.menu;
@@ -37,8 +41,7 @@ const MailContent = (TodayMenu: string, TodaySchedule: string, MonthlyMenu: Arra
   // TodayList
   switch (week) {
     case 1: // 월
-      text =
-        `[오늘의 할일]\n2시 도시락 세팅\n\n` + text;
+      text = `[오늘의 할일]\n2시 도시락 세팅\n\n` + text;
       break;
     case 2: // 화
       text = `[오늘의 할일]\n3시 대체식 세팅\n\n` + text;
