@@ -61,12 +61,12 @@ const mailSend = async (
     port: 587,
     secure: true,
     auth: {
+      type: 'OAuth2',
       user: process.env.MAIL_USER,
       accessToken,
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      refreshToken: process.env.REFRESH_TOKEN,
-      pass: process.env.MAIL_PASSWORD
+      refreshToken: process.env.REFRESH_TOKEN
     }
   });
 
@@ -77,12 +77,12 @@ const mailSend = async (
       subject: `[오늘의 메뉴 & 일정] ${TodayDate()}`,
       text: MailContent(TodayMenu, TodaySchedule, MonthlyMenu)
     });
-    console.log(messageId ? `Message sent: ${messageId}` : 'Error');
+    console.log(`Message sent: ${messageId}`);
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
   };
 
   MailList.map(async (ele) => {
-    await info(ele.email);
+    await info(ele.email).catch(console.error);
   });
 };
 

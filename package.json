@@ -6,9 +6,11 @@
   "scripts": {
     "dev:compile": "shx rm -rf lib/ && tsc -w",
     "dev:ts-node": "cross-env NODE_ENV=development ts-node-dev --respawn --no-notify --watch src ./src/app.ts",
-    "dev": "concurrently -n Ts-Node,Watcher -c blue,green \"npm run dev:ts-node\" \"npm run dev:compile\"",
+    "dev1": "concurrently -n Ts-Node,Watcher -c blue,green \"npm run dev:ts-node\" \"npm run dev:compile\"",
+    "dev": "export NODE_ENV=development && ts-node ./src/app.ts",
     "build": "rimraf ./build && tsc",
     "prod": "npm run build && cross-env NODE_ENV=production node ./build/app.js",
+    "prod:node": "cross-env NODE_ENV=production node ./build/app.js",
     "pm2": "npm run build && cross-env NODE_ENV=production pm2 start ./build/app.js --name 'wooman'",
     "pm2-restart": "npm run build && pm2 restart wooman",
     "lint": "eslint . --ext .ts",

@@ -36,11 +36,14 @@ const main = async (): Promise<void> => {
 };
 
 // Main Function
-const timer: string =
-  process.env.NODE_ENV == 'development' ? '20 * * * * *' : '30 22 * * *';
-schedule.scheduleJob(timer, function () {
-  // 서버 시간에 맞춰서 작동함.
-  // 30 22 * * * (Ubuntu 서버 시간 기준) 오전 7시 30분
-  // 1분 매크로 0 * * * * *
-  main();
-});
+if (process.env.NODE_ENV == 'development') {
+  main().catch(console.error);
+} else if (process.env.NODE_ENV === 'production') {
+  const timer = '30 22 * * *'; // '30 22 * * *'; // '0 * * * * *';
+  schedule.scheduleJob(timer, function () {
+    // 서버 시간에 맞춰서 작동함.
+    // 30 22 * * * (Ubuntu 서버 시간 기준) 오전 7시 30분
+    // 1분 매크로 0 * * * * *
+    main().catch(console.error);
+  });
+}
