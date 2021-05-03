@@ -4,15 +4,20 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development ts-node-dev --respawn --watch src ./src/app.ts",
+    "dev:compile": "shx rm -rf lib/ && tsc -w",
+    "dev:ts-node": "cross-env NODE_ENV=development ts-node-dev --respawn --no-notify --watch src ./src/app.ts",
+    "dev1": "concurrently -n Ts-Node,Watcher -c blue,green \"npm run dev:ts-node\" \"npm run dev:compile\"",
+    "dev": "export NODE_ENV=development && ts-node ./src/app.ts",
     "build": "rimraf ./build && tsc",
     "prod": "npm run build && cross-env NODE_ENV=production node ./build/app.js",
+    "prod:node": "cross-env NODE_ENV=production node ./build/app.js",
     "pm2": "npm run build && cross-env NODE_ENV=production pm2 start ./build/app.js --name 'wooman'",
     "pm2-restart": "npm run build && pm2 restart wooman",
     "lint": "eslint . --ext .ts",
     "lint-and-fix": "eslint . --ext .ts --fix",
     "clean": "rimraf build node_modules yarn-error.log",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@types/cheerio": "^0.22.28",
@@ -22,6 +27,7 @@
     "cheerio": "^1.0.0-rc.5",
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
+    "googleapis": "^72.0.0",
     "moment-timezone": "^0.5.33",
     "node-schedule": "^2.0.0",
     "nodemailer": "^6.5.0"
@@ -29,12 +35,14 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
+    "concurrently": "^6.0.2",
     "eslint": "^7.23.0",
     "eslint-plugin-no-loops": "^0.3.0",
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
+    "shx": "^0.3.3",
     "ts-node": "^9.1.1",
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3"

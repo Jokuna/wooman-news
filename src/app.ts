@@ -1,5 +1,3 @@
-// import 'dotenv/config';
-
 import schedule from 'node-schedule';
 import { crawler, crawlerPlan } from './services/crawler';
 import mailSend from './services/mail';
@@ -11,7 +9,13 @@ type menu = {
   menu: string;
 };
 
-const main = async () => {
+const main = async (): Promise<void> => {
+  if (process.env.NODE_ENV == 'development') {
+    await import('dotenv/config'); // Dynamic import
+    // 개발용으로만 .env 파일 사용,
+    // 배포 시, Docker-compose의 environment을 통해 환경 변수들을 가져옴
+  }
+
   const MonthlyMenu: Array<menu> = await crawler(
     'http://www.wooman.or.kr/community/?act=sub1_3'
   );
@@ -32,9 +36,14 @@ const main = async () => {
 };
 
 // Main Function
-schedule.scheduleJob('30 22 * * *', function () {
-  // 서버 시간에 맞춰서 작동함.
-  // 30 22 * * * (Ubuntu 서버 시간 기준) 오전 7시 30분
-  // 1분 매크로 0 * * * * *
-  main();
-});
+if (process.env.NODE_ENV == 'development') {
+  main().catch(console.error);
+} else if (process.env.NODE_ENV === 'production') {
+  const timer = '30 22 * * *'; // '30 22 * * *'; // '0 * * * * *';
+  schedule.scheduleJob(timer, function () {
+    // 서버 시간에 맞춰서 작동함.
+    // 30 22 * * * (Ubuntu 서버 시간 기준) 오전 7시 30분
+    // 1분 매크로 0 * * * * *
+    main().catch(console.error);
+  });
+}
