@@ -23,26 +23,26 @@ const MailContent = (
   // Special Day
   switch (day) {
     case 25:
-      text = `1시간 일찍 퇴근하는 날~\n\n` + text;
+      text = `1시간 일찍 퇴근\n\n` + text;
       break;
     case 24:
       if (!Menu25) {
-        text = `1시간 일찍 퇴근하는 날~\n\n` + text;
+        text = `1시간 일찍 퇴근\n\n` + text;
       }
       break;
     case 23:
       if (!Menu25 && !Menu24) {
         // 23일이 금요일 or 24, 25일 공휴일
-        text = `1시간 일찍 퇴근하는 날~\n\n` + text;
+        text = `1시간 일찍 퇴근\n\n` + text;
       }
       break;
   }
 
   // TodayList
   switch (week) {
-    case 1: // 월
-      text = `[오늘의 할일]\n2시 도시락 세팅\n\n` + text;
-      break;
+    // case 1: // 월
+    //   text = `[오늘의 할일]\n2시 도시락 세팅\n\n` + text;
+    //   break;
     case 2: // 화
       text = `[오늘의 할일]\n3시 대체식 세팅\n\n` + text;
       break;
