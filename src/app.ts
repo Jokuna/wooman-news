@@ -30,8 +30,10 @@ const main = async (): Promise<void> => {
     (e) => e.date === NumOfdays()
   )?.menu;
 
-  if (TodayMenu && TodaySchedule) {
-    await mailSend(TodayMenu, TodaySchedule, MonthlyMenu).catch(console.error);
+  if (TodayMenu) {
+    await mailSend(TodayMenu, TodaySchedule ?? '', MonthlyMenu).catch(
+      console.error
+    );
   }
 };
 

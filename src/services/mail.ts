@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import MailContent from './mail_content';
-import { TodayDate } from './date';
+import { TodayDate, TodaySpecDate } from './date';
 import MailJSON from '../config/mail.json';
 
 import { google } from 'googleapis';
@@ -82,7 +82,14 @@ const mailSend = async (
   };
 
   MailList.map(async (ele) => {
-    await info(ele.email).catch(console.error);
+    await info(ele.email).catch((err) => {
+      console.log(TodaySpecDate(), err, '30초 후에 재전송');
+      setTimeout(function () {
+        info(ele.email).catch((err) => {
+          console.log(TodaySpecDate(), err, '실패');
+        });
+      }, 30 * 1000); // 30초 재 실행
+    });
   });
 };
 
