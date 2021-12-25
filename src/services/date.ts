@@ -1,6 +1,11 @@
 import moment from 'moment-timezone';
 
-const NumOfdays = (): number => Number(moment().tz('Asia/Seoul').format('DD'));
+// NumOfdays의 return 숫자는 개발 편의을 위해 추가한 것
+const NumOfdays = (): number =>
+  process.env.NODE_ENV == 'development'
+    ? 23
+    : Number(moment().tz('Asia/Seoul').format('DD'));
+
 const TodayDate = (): string => moment().tz('Asia/Seoul').format('YY-MM-DD');
 const TodaySpecDate = (): string =>
   moment().tz('Asia/Seoul').format('YY-MM-DD HH:mm');
