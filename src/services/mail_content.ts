@@ -23,17 +23,17 @@ const MailContent = (
   // Special Day
   switch (day) {
     case 25:
-      text = `1시간 일찍 퇴근\n\n` + text;
+      text = `[*중요*]\n1시간 일찍 퇴근\n\n` + text;
       break;
     case 24:
       if (!Menu25) {
-        text = `1시간 일찍 퇴근\n\n` + text;
+        text = `[*중요*]\n1시간 일찍 퇴근\n\n` + text;
       }
       break;
     case 23:
       if (!Menu25 && !Menu24) {
         // 23일이 금요일 or 24, 25일 공휴일
-        text = `1시간 일찍 퇴근\n\n` + text;
+        text = `[*중요*]\n1시간 일찍 퇴근\n\n` + text;
       }
       break;
   }
@@ -50,9 +50,7 @@ const MailContent = (
     //   text = `` + text;
     //   break;
     case 4: // 목
-      text =
-        `[오늘의 할일]\n김치 배달\n요리교실 업무지원 확인! (10시30분~12시)\n\n` +
-        text;
+      text = `[오늘의 할일]\n김치 배달\n\n` + text;
       break;
     // case 5: // 금
     //   text = `` + text;
