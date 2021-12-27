@@ -1,9 +1,6 @@
 {
   "ignore": ["node_modules"],
   "watch": ["src"],
-  "delay": 2,
-
-  "execMap": {
-    "swc": "rimraf ./build && npx swc src -d build && cp -r src/config build"
-  }
+  "ext": "ts",
+  "exec": "rimraf ./build && npx swc src -d build && cp -r src/config build && node build/app.js"
 }
