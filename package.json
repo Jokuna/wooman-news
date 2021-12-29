@@ -4,16 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "swc": "rimraf ./build && npx swc src -d build -w",
-    "swc:legacy_run": "cross-env NODE_ENV=development node --experimental-modules --es-module-specifier-resolution=node ./build/app.js",
-    "swc:run": "cross-env NODE_ENV=development node ./build/app.js",
-    "dev:swc": "cross-env NODE_ENV=development nodemon --config nodemon.json",
-    "dev:compile": "shx rm -rf lib/ && tsc -w",
-    "dev:ts-node": "cross-env NODE_ENV=development ts-node-dev --respawn --no-notify --watch src ./src/app.ts",
-    "dev": "concurrently -n Ts-Node,Watcher -c blue,green \"npm run dev:ts-node\" \"npm run dev:compile\"",
-    "dev:run": "cross-env NODE_ENV=development && node ./build/app.js",
-    "build": "rimraf ./build && tsc",
-    "prod": "npm run build && cross-env NODE_ENV=production node ./build/app.js",
+    "build": "rimraf ./build && npx swc src -d build && shx cp -r src/config build",
+    "dev": "cross-env NODE_ENV=development nodemon --config nodemon.json",
+    "prod": "npm run build && npm run prod:node",
     "prod:node": "cross-env NODE_ENV=production node ./build/app.js",
     "pm2": "npm run build && cross-env NODE_ENV=production pm2 start ./build/app.js --name 'wooman'",
     "pm2-restart": "npm run build && pm2 restart wooman",
@@ -21,7 +14,9 @@
     "lint-and-fix": "eslint . --ext .ts --fix",
     "clean": "rimraf build node_modules yarn-error.log",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "docker:build": "docker build --tag wooman:1.0.0 .",
+    "docker:run": "docker run docker stop wooman1 && docker rm wooman1 && docker run -it --name wooman1 -d wooman:1.0.0"
   },
   "dependencies": {
     "@types/cheerio": "^0.22.28",
