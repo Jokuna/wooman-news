@@ -5,12 +5,12 @@
 
 ----
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
 매일 아침마다 복지관 식단 알려주는 봇
 
 ## Archived
+사용 기간: 2021.4.7 ~ 2022.09.16
 
 ## 이메일 등록하기
 
@@ -30,10 +30,7 @@
     ```bash
     sudo gitlab-runner run
     ```
-    ```powershell
-    docker
-    ```
-
+    
     4. git push
         * gitlab-ci로 인해, master branch에 push 하기만 하면 자동으로 배포가 됩니다.
 
