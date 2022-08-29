@@ -1,0 +1,10 @@
+services:
+  wooman:
+    image: 'docker.jokuna.dev/dev/wooman'
+    restart: always
+    container_name: wooman
+    environment:
+      - MAIL_USER=
+      - CLIENT_SECRET=
+      - CLIENT_ID=
+      - REFRESH_TOKEN=
